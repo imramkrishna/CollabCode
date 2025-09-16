@@ -1,0 +1,14 @@
+{
+  "name": "collabcode",
+  "version": "1.0.0",
+  "description": "Backend for collabcode website",
+  "license": "ISC",
+  "author": "Ram Krishna Yadav",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"tsc -b",
+    "dev":"tsc -b && node dist/index.js"
+  }
+}
