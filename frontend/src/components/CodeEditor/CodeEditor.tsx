@@ -1,15 +1,62 @@
 "use client";
 import React from "react";
 import { Editor } from "@monaco-editor/react";
+import { FileNode,CodeEditorProps } from "@/types";
+import renderFilesTree from "./renderFilesTree";
 
-interface CodeEditorProps {
-    language?: string;
-    theme?: string;
-}
+const initialFiles: FileNode = {
+    id: 'root',
+    name: 'root',
+    type: 'folder',
+    children: [
+        {
+            id: '1',
+            name: 'index.js',
+            type: 'file',
+            content: "// Welcome to CollabCode\n// Start coding together!\n\nconsole.log('Hello, World!');"
+        },
+        {
+            id: '2',
+            name: 'App.js',
+            type: 'file',
+            content: "import React from 'react';\n\nconst App = () => {\n    return <div>Hello from App.js</div>;\n};\n\nexport default App;"
+        },
+        {
+            id: '3',
+            name: 'styles.css',
+            type: 'file',
+            content: "body {\n    background-color: #f0f0f0;\n    font-family: Arial, sans-serif;\n}"
+        },
+        {
+            id: '4',
+            name: 'assets',
+            type: 'folder',
+            children: [
+                {
+                    id: '5',
+                    name: 'logo.png',
+                    type: 'file',
+                    content: "This is a logo image."
+                },
+                {
+                    id: '6',
+                    name: 'background.jpg',
+                    type: 'file',
+                    content: "This is a background image."
+                }
+            ]
+        }
+    ]
+};
 const CodeEditor = ({
     language = "javascript",
-    theme = "vs-dark"
+    theme = "vs-dark",
+    uniqueId,
+    rootNode
 }: CodeEditorProps) => {
+    const [selectedFile, setSelectedFile] = React.useState<FileNode | null>(null);
+    const [files, setFiles] = React.useState<FileNode>(initialFiles);
+
     return (
         <div
             className="code-editor flex min-h-screen bg-gradient-to-br from-[#0d1117] via-[#161b22] to-[#21262d]"
@@ -40,30 +87,7 @@ const CodeEditor = ({
                 {/* File Tree */}
                 <div className="flex-1 p-3">
                     <div className="space-y-1">
-                        <div 
-                            className="group flex items-center px-3 py-2 rounded-md cursor-pointer text-[#8b949e] hover:bg-[#21262d] hover:text-[#f0f6fc] transition-all duration-200 ease-out"
-                        >
-                            <span className="mr-2 text-xs opacity-60">📄</span>
-                            <span className="text-sm font-medium">index.js</span>
-                        </div>
-                        <div 
-                            className="group flex items-center px-3 py-2 rounded-md cursor-pointer text-[#8b949e] hover:bg-[#21262d] hover:text-[#f0f6fc] transition-all duration-200 ease-out"
-                        >
-                            <span className="mr-2 text-xs opacity-60">⚛️</span>
-                            <span className="text-sm font-medium">App.js</span>
-                        </div>
-                        <div 
-                            className="group flex items-center px-3 py-2 rounded-md cursor-pointer text-[#8b949e] hover:bg-[#21262d] hover:text-[#f0f6fc] transition-all duration-200 ease-out"
-                        >
-                            <span className="mr-2 text-xs opacity-60">🎨</span>
-                            <span className="text-sm font-medium">styles.css</span>
-                        </div>
-                        <div 
-                            className="group flex items-center px-3 py-2 rounded-md cursor-pointer text-[#8b949e] hover:bg-[#21262d] hover:text-[#f0f6fc] transition-all duration-200 ease-out"
-                        >
-                            <span className="mr-2 text-xs opacity-60">📝</span>
-                            <span className="text-sm font-medium">README.md</span>
-                        </div>
+                    {renderFilesTree(files, setSelectedFile)}
                     </div>
                 </div>
 
@@ -83,7 +107,7 @@ const CodeEditor = ({
                     <div className="flex items-center space-x-1">
                         <div className="flex items-center px-3 py-1.5 bg-[#21262d] rounded-md border border-[#30363d]/50">
                             <span className="mr-2 text-xs">📄</span>
-                            <span className="text-sm text-[#f0f6fc] font-medium">index.js</span>
+                            <span className="text-sm text-[#f0f6fc] font-medium">{selectedFile?.name}</span>
                             <button className="ml-2 text-[#8b949e] hover:text-[#f0f6fc] transition-colors duration-150">
                                 ×
                             </button>
