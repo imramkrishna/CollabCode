@@ -125,6 +125,7 @@ const CodeEditor = ({
                 >
                     <Editor
                         height="100%"
+                        value={selectedFile?.content}
                         defaultValue={"// Welcome to CollabCode\n// Start coding together!\n\nconsole.log('Hello, World!');"}
                         language={language}
                         theme={theme}
