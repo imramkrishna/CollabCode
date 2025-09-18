@@ -1,4 +1,3 @@
-import Image from "next/image";
 import CodeEditor from "./components/CodeEditor/CodeEditor";
 export default function Home() {
   return (
@@ -7,7 +6,7 @@ export default function Home() {
         Real-time Collaborative Code Editor
       </h1>
       <div className="w-full h-full border-2 border-gray-300 rounded-lg overflow-hidden">
-        <CodeEditor />
+        <CodeEditor language="javascript" theme="vs-dark"/>
       </div>
       <footer className="text-center text-sm text-gray-500">
         &copy; 2024 Your Company. All rights reserved.
