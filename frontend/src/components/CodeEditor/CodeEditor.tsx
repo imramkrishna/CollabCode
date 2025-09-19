@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React,{useState} from "react";
 import { Editor } from "@monaco-editor/react";
 import { FileNode,CodeEditorProps } from "@/types";
 import renderFilesTree from "./renderFilesTree";
@@ -56,6 +56,10 @@ const CodeEditor = ({
 }: CodeEditorProps) => {
     const [selectedFile, setSelectedFile] = React.useState<FileNode | null>(null);
     const [files, setFiles] = React.useState<FileNode>(initialFiles);
+    const [selectedFolder,setSelectedFolder] = useState<string | null>(null);
+    const [showFolderMenu,setShowFolderMenu]=useState<boolean>(false)
+    const [showAddNewFile,setShowAddNewFile]=useState<boolean>(false)
+    const [newFileName, setNewFileName] = useState<string>('');
 
     return (
         <div
@@ -87,7 +91,7 @@ const CodeEditor = ({
                 {/* File Tree */}
                 <div className="flex-1 p-3">
                     <div className="space-y-1">
-                    {renderFilesTree(files, setSelectedFile)}
+                    {renderFilesTree(files, setSelectedFile, selectedFolder, setSelectedFolder, showFolderMenu, setShowFolderMenu, showAddNewFile, setShowAddNewFile, newFileName, setNewFileName)}
                     </div>
                 </div>
 

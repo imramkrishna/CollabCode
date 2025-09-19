@@ -2,15 +2,22 @@ import React,{useState} from "react";
 import { FileNode } from "@/types"
 import getExtension from "@/utils/getExtension";
 import getIconByExtension from "@/utils/getIconsByExtension";
-const renderFilesTree = (node: FileNode, setSelectedFile: React.Dispatch<React.SetStateAction<FileNode | null>>) => {
-    const [selectedFolder,setSelectedFolder] = useState<string | null>(null);
-    const [showFolderMenu,setShowFolderMenu]=useState<boolean>(false)
-    const [showAddNewFile,setShowAddNewFile]=useState<boolean>(false)
-    const [newFileName, setNewFileName] = useState<string>('');
-
+import { renderFilesTreeProps } from "@/types";
+const renderFilesTree = (
+    node: FileNode, 
+    setSelectedFile: React.Dispatch<React.SetStateAction<FileNode | null>>,
+    selectedFolder: string | null,
+    setSelectedFolder: React.Dispatch<React.SetStateAction<string | null>>,
+    showFolderMenu: boolean,
+    setShowFolderMenu: React.Dispatch<React.SetStateAction<boolean>>,
+    showAddNewFile: boolean,
+    setShowAddNewFile: React.Dispatch<React.SetStateAction<boolean>>,
+    newFileName: string,
+    setNewFileName: React.Dispatch<React.SetStateAction<string>>
+    ) => {
     const handleCreateFile = (node:FileNode) => {
         if (newFileName.trim()) {
-            node.children.push({
+            node.children?.push({
                 id: Date.now().toString(),
                 name: newFileName,
                 type: 'file',
@@ -93,7 +100,7 @@ const renderFilesTree = (node: FileNode, setSelectedFile: React.Dispatch<React.S
                         />
                     </div>
                 )}
-                    {node.children && node.children.map(child => renderFilesTree(child, setSelectedFile))}
+                    {node.children && node.children.map(child => renderFilesTree(child, setSelectedFile, selectedFolder, setSelectedFolder, showFolderMenu, setShowFolderMenu, showAddNewFile, setShowAddNewFile, newFileName, setNewFileName))}
                 </div>
             </div>
             
