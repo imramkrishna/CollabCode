@@ -5,9 +5,31 @@ import getIconByExtension from "@/utils/getIconsByExtension";
 const renderFilesTree = (node: FileNode, setSelectedFile: React.Dispatch<React.SetStateAction<FileNode | null>>) => {
     const [selectedFolder,setSelectedFolder] = useState<string | null>(null);
     const [showFolderMenu,setShowFolderMenu]=useState<boolean>(false)
-    const handleCreateNewFile=()=>{
-        alert("New File Triggered")
-    }
+    const [showAddNewFile,setShowAddNewFile]=useState<boolean>(false)
+    const [newFileName, setNewFileName] = useState<string>('');
+
+    const handleCreateFile = (node:FileNode) => {
+        if (newFileName.trim()) {
+            node.children.push({
+                id: Date.now().toString(),
+                name: newFileName,
+                type: 'file',
+                content: ''
+            })
+            setNewFileName('');
+            setShowAddNewFile(false);
+        }
+    };
+
+    const handleKeyPress = (e: React.KeyboardEvent,node:FileNode) => {
+        if (e.key === 'Enter') {
+            handleCreateFile(node);
+        } else if (e.key === 'Escape') {
+            setNewFileName('');
+            setShowAddNewFile(false);
+        }
+    };
+
     if (node.type === 'file') {
         const extension = getExtension(node.name);
         const icon = getIconByExtension(extension);
@@ -39,7 +61,7 @@ const renderFilesTree = (node: FileNode, setSelectedFile: React.Dispatch<React.S
                     className="mr-2 text-md">{selectedFolder === node.id ? '▼' : '►'} 📁</span>
                     <span>{node.name}</span>
                     <span className="text-md ml-2 cursor-pointer"
-                    onClick={handleCreateNewFile}
+                    onClick={()=>setShowAddNewFile(!showAddNewFile)}
                     >{/* Adding New File Icon here */}+</span>
                     {showFolderMenu && (
                         <div className="context-menu flex flex-col space-x-2 bg-[#161b22] p-2 rounded-md border border-[#30363d]/50 absolute">
@@ -51,6 +73,26 @@ const renderFilesTree = (node: FileNode, setSelectedFile: React.Dispatch<React.S
                     )}
                 </div>
                 <div className="ml-4 border-l border-[#30363d]/20 pl-2">
+                {/** adding a input for creating new file*/}
+                {showAddNewFile && (
+                    <div className="flex items-center mb-1 pl-4">
+                        <span className="mr-2 text-xs">📄</span>
+                        <input
+                            type="text"
+                            value={newFileName}
+                            onChange={(e) => setNewFileName(e.target.value)}
+                            onKeyDown={(e) => handleKeyPress(e, node)}
+                            onBlur={() => {
+                                if (!newFileName.trim()) {
+                                    setShowAddNewFile(false);
+                                }
+                            }}
+                            className="bg-[#0d1117] border border-[#30363d] text-[#f0f6fc] text-sm px-2 py-1 rounded-sm outline-none focus:border-[#1f6feb] focus:ring-1 focus:ring-[#1f6feb] min-w-[120px]"
+                            placeholder="Enter file name..."
+                            autoFocus
+                        />
+                    </div>
+                )}
                     {node.children && node.children.map(child => renderFilesTree(child, setSelectedFile))}
                 </div>
             </div>
