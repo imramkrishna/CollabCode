@@ -100,7 +100,7 @@ console.log(fibonacci(10));`;
             variants={itemVariants}
             className="flex flex-col sm:flex-row gap-4 lg:gap-6 justify-center items-stretch sm:items-center px-4"
           >
-            <motion.button
+            <Link href="/Editor"><motion.button
               className="px-8 py-4 lg:py-5 bg-gradient-to-r from-teal-600 to-teal-400 text-black font-semibold rounded-xl lg:rounded-2xl text-base lg:text-lg shadow-2xl focus:outline-none focus:ring-4 focus:ring-teal-500/50 focus:ring-offset-2 focus:ring-offset-black min-w-[200px]"
               whileHover={{ 
                 scale: 1.05, 
@@ -108,8 +108,8 @@ console.log(fibonacci(10));`;
               }}
               whileTap={{ scale: 0.95 }}
               aria-label="Start coding with CollabCode now"
-            ><Link href="/Editor">Start Coding Now</Link>
-            </motion.button>
+            >Start Coding Now
+            </motion.button></Link>
             <motion.button
               className="px-8 py-4 lg:py-5 border-2 border-gray-700 text-white font-semibold rounded-xl lg:rounded-2xl text-base lg:text-lg hover:border-teal-500 hover:bg-teal-500/10 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-teal-500/50 focus:ring-offset-2 focus:ring-offset-black min-w-[200px]"
               whileHover={{ scale: 1.05 }}
