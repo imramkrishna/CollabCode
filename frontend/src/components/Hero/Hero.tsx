@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
-
+import Link from 'next/link';
 const Hero = () => {
   const codeExample = `// Real-time collaboration in action
 function fibonacci(n) {
@@ -108,8 +108,7 @@ console.log(fibonacci(10));`;
               }}
               whileTap={{ scale: 0.95 }}
               aria-label="Start coding with CollabCode now"
-            >
-              Start Coding Now
+            ><Link href="/Editor">Start Coding Now</Link>
             </motion.button>
             <motion.button
               className="px-8 py-4 lg:py-5 border-2 border-gray-700 text-white font-semibold rounded-xl lg:rounded-2xl text-base lg:text-lg hover:border-teal-500 hover:bg-teal-500/10 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-teal-500/50 focus:ring-offset-2 focus:ring-offset-black min-w-[200px]"
