@@ -6,10 +6,10 @@ import Hero from '@/components/Hero/Hero';
 import Features from '@/components/Features/Features';
 import Footer from '@/components/Footer/Footer';
 
-export default function Home() {
+const LandingPage = () => {
   return (
     <motion.main 
-      className="min-h-screen bg-black"
+      className="min-h-screen bg-gray-900"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -24,7 +24,7 @@ export default function Home() {
       <Features />
       
       {/* Additional Sections */}
-      <section id="about" className="py-20 bg-gradient-to-br from-black via-gray-900/20 to-black">
+      <section id="about" className="py-20 bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
@@ -35,7 +35,7 @@ export default function Home() {
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
               Built for{' '}
-              <span className="bg-gradient-to-r from-teal-400 to-teal-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 Modern Teams
               </span>
             </h2>
@@ -73,7 +73,7 @@ export default function Home() {
                 >
                   <h3 className="text-xl font-semibold text-white mb-4">{item.title}</h3>
                   <p className="text-gray-400 mb-4">{item.description}</p>
-                  <div className="text-sm text-teal-400 font-medium">{item.stats}</div>
+                  <div className="text-sm text-purple-400 font-medium">{item.stats}</div>
                 </motion.div>
               ))}
             </div>
@@ -82,7 +82,7 @@ export default function Home() {
       </section>
 
       {/* Pricing Preview Section */}
-      <section id="pricing" className="py-20 bg-black">
+      <section id="pricing" className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center"
@@ -93,7 +93,7 @@ export default function Home() {
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
               Simple{' '}
-              <span className="bg-gradient-to-r from-teal-400 to-teal-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
                 Pricing
               </span>
             </h2>
@@ -134,7 +134,7 @@ export default function Home() {
                 <motion.div
                   key={plan.name}
                   className={`relative bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border ${
-                    plan.popular ? 'border-teal-500/50 bg-teal-500/5' : 'border-gray-700/50'
+                    plan.popular ? 'border-purple-500/50 bg-purple-500/5' : 'border-gray-700/50'
                   }`}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -144,7 +144,7 @@ export default function Home() {
                 >
                   {plan.popular && (
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                      <span className="bg-gradient-to-r from-teal-500 to-teal-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                      <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-1 rounded-full text-sm font-medium">
                         Most Popular
                       </span>
                     </div>
@@ -173,8 +173,8 @@ export default function Home() {
                   <motion.button
                     className={`w-full py-3 px-6 rounded-xl font-medium transition-all duration-200 ${
                       plan.popular
-                        ? 'bg-gradient-to-r from-teal-600 to-teal-400 text-black hover:from-teal-700 hover:to-teal-500'
-                        : 'border-2 border-gray-600 text-white hover:border-teal-500'
+                        ? 'bg-gradient-to-r from-purple-500 to-pink-600 text-white hover:from-purple-600 hover:to-pink-700'
+                        : 'border-2 border-gray-600 text-white hover:border-gray-400'
                     }`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -189,7 +189,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-gradient-to-br from-black via-gray-900/20 to-black">
+      <section id="contact" className="py-20 bg-gradient-to-br from-gray-900 via-blue-900/20 to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="max-w-4xl mx-auto text-center"
@@ -200,7 +200,7 @@ export default function Home() {
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
               Ready to get{' '}
-              <span className="bg-gradient-to-r from-teal-400 to-teal-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
                 started?
               </span>
             </h2>
@@ -210,17 +210,17 @@ export default function Home() {
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <motion.button
-                className="px-10 py-4 bg-gradient-to-r from-teal-600 to-teal-400 text-black font-semibold rounded-xl text-lg shadow-2xl"
+                className="px-10 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl text-lg shadow-2xl"
                 whileHover={{ 
                   scale: 1.05, 
-                  boxShadow: "0 25px 50px rgba(20, 184, 166, 0.4)" 
+                  boxShadow: "0 25px 50px rgba(59, 130, 246, 0.4)" 
                 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Start Free Today
               </motion.button>
               <motion.button
-                className="px-10 py-4 border-2 border-gray-600 text-white font-semibold rounded-xl text-lg hover:border-teal-500 transition-colors duration-200"
+                className="px-10 py-4 border-2 border-gray-600 text-white font-semibold rounded-xl text-lg hover:border-gray-400 transition-colors duration-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -256,4 +256,6 @@ export default function Home() {
       <Footer />
     </motion.main>
   );
-}
+};
+
+export default LandingPage;
