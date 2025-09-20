@@ -1,9 +1,10 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   const navItems = [
     { name: 'Features', href: '#features' },
@@ -11,6 +12,43 @@ const Header = () => {
     { name: 'About', href: '#about' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  // Function to handle scroll and update active section
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['features', 'pricing', 'about', 'contact'];
+      const scrollPosition = window.scrollY + 100; // Offset for header height
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetHeight = element.offsetHeight;
+          
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+
+      // If we're at the top of the page, clear active section
+      if (window.scrollY < 100) {
+        setActiveSection('');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Call once to set initial state
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Function to check if a navigation item is active
+  const isActive = (href: string) => {
+    const sectionName = href.replace('#', '');
+    return activeSection === sectionName;
+  };
 
   return (
     <motion.header 
@@ -39,13 +77,26 @@ const Header = () => {
               <motion.a
                 key={item.name}
                 href={item.href}
-                className="text-gray-400 hover:text-teal-300 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-black rounded-md px-2 py-1"
+                className={`transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-black rounded-md px-2 py-1 relative ${
+                  isActive(item.href) 
+                    ? 'text-teal-400' 
+                    : 'text-gray-400 hover:text-teal-300'
+                }`}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 + 0.3 }}
                 whileHover={{ y: -2 }}
               >
                 {item.name}
+                {isActive(item.href) && (
+                  <motion.div
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-600 to-teal-400 rounded-full"
+                    layoutId="activeTab"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
               </motion.a>
             ))}
           </nav>
@@ -109,13 +160,26 @@ const Header = () => {
             <motion.a
               key={item.name}
               href={item.href}
-              className="block px-3 py-2 text-gray-400 hover:text-teal-300 hover:bg-gray-900 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-black"
+              className={`block px-3 py-2 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-black relative ${
+                isActive(item.href)
+                  ? 'text-teal-400 bg-gray-900/50'
+                  : 'text-gray-400 hover:text-teal-300 hover:bg-gray-900'
+              }`}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: isMenuOpen ? 1 : 0, x: isMenuOpen ? 0 : -20 }}
               transition={{ delay: index * 0.1 }}
               onClick={() => setIsMenuOpen(false)}
             >
               {item.name}
+              {isActive(item.href) && (
+                <motion.div
+                  className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-teal-600 to-teal-400 rounded-r"
+                  layoutId="activeMobileTab"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+              )}
             </motion.a>
           ))}
           <div className="px-3 py-2 space-y-2">
