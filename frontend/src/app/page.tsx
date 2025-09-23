@@ -5,7 +5,7 @@ import Header from '@/components/Header/Header';
 import Hero from '@/components/Hero/Hero';
 import Features from '@/components/Features/Features';
 import Footer from '@/components/Footer/Footer';
-
+//added framer motion for animations
 export default function Home() {
   return (
     <motion.main 
